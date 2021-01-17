@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
     public $timestamps = false;
-
+    protected $table = 'users';
     /**
      * The attributes that should be hidden for arrays.
      *

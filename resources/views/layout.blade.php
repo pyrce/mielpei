@@ -28,7 +28,9 @@
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/producteur/2">Mes infos</a>
   </li>
-
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
+  </li>
 </ul>
 @yield("content")
 <script src="https://kit.fontawesome.com/c1f6020dab.js" crossorigin="anonymous"></script>

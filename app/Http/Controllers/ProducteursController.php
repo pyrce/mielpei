@@ -26,8 +26,8 @@ class ProducteursController extends Controller
 
         //$producteur=ProduitsModel::with("users")->where("user_id","=",3)->get();
        //$producteur=ProducteursModel::find(1)->produits()->get();
-        $producteur= ProduitsModel::join('produit_user','produit_id','=',"produits.id")->where("user_id",3)->get();
-      
+        $producteur= ProduitsModel::join('produit_user','produit_id','=',"produits.id")->where("user_id",2)->get();
+    
         $commandes=CommandesModel::join("commande_produit","commande_id","=","commandes.id")
         ->join("produits","produits.id","=","commande_produit.produit_id")
         ->join("produit_user","produit_user.produit_id","=","produits.id")
@@ -61,12 +61,12 @@ class ProducteursController extends Controller
     
     public function deleteProduit(Request $req){
         $id=$req->get("id");
-        UsersModel::find(1)->produits()->detach($id);
+        UsersModel::find(2)->produits()->detach($id);
       
     }
     public function infos($id){
-        $producteur=User::find($id)->get();
-        return view("infos",["producteur"=>$producteur[0]]);
+        $producteur=User::find($id);
+        return view("infos",["producteur"=>$producteur]);
       
     }
     public function addstock(Request $req){
@@ -74,10 +74,12 @@ class ProducteursController extends Controller
         $produitid=$data["produitid"];
         $stock=$data["stock"];
     
-        $user=UsersModel::find(3);
+        //$user=ProduitsModel::with("users")->where("user_id",3)->where("produit_id",$produitid)->get();
+ 
         $attr=array();
         $attr["stock"]=$stock;
-        $user->produits()->updateExistingPivot($produitid, $attr);
+
+          User::find(2)->produits()->updateExistingPivot($produitid, $attr);
        // $user->produits()->sync(["stock"=>$stock]);
         
      
@@ -85,8 +87,8 @@ class ProducteursController extends Controller
 
     public function modifier(Request $req){
         $data=$req->all()["data"];
-
-        User::where("id",2)->update($data);
+        $id=$req->all()["id"];
+        User::where("id",$id)->update($data);
         
         //$user=User::find(2)->
     }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RolesModel extends Model
 {
     use HasFactory;
-    protected $table = 'produits';
+    protected $table = 'roles';
     public $timestamps = false;
 
     function users(){

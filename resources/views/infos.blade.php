@@ -31,14 +31,14 @@
         </span>
 </div>
 
-<button class="btn btn-primary col-2 float-end" onclick="modifier()">Modifier</button>
+<button class="btn btn-primary col-2 float-end" onclick="modifier('{{$producteur->id}}')">Modifier</button>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
 <script>
 
-function modifier(){
+function modifier(id){
     data={}
     data["nomUser"]=$("#nomUser").val();
     data["prenomUser"]=$("#prenomUser").val();
@@ -47,7 +47,7 @@ function modifier(){
 $.ajax({
 url:"/producteur",
 type:"PUT",
-data:{data, "_token": "{{ csrf_token() }}"},
+data:{data,id, "_token": "{{ csrf_token() }}"},
 success:()=>{
 
 }

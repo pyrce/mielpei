@@ -23,7 +23,7 @@ class CommandesModelFactory extends Factory
     {
         return [
             "date"=>$this->faker->date,
-            "user_id"=>random_int(1,3),
+            "user_id"=>random_int(2,5),
             "addresse"=>$this->faker->address
         ];
     }

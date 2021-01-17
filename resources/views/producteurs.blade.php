@@ -4,9 +4,9 @@
 
 
 
-Nom {{$producteur->nomProducteur}} </br>
+Nom {{$producteur->nomUser}} </br>
 
-Preom {{$producteur->prenomProducteur}} </br>
+Preom {{$producteur->prenomUser}} </br>
 
 Adresse {{$producteur->adresse}} </br>
 
@@ -26,7 +26,7 @@ Tel {{$producteur->tel}} </br>
 <p>En stock {{ $p->stock }}</p>
 
 <span class="d-flex">
-<button class="btn btn-success" onclick="addcart('{{$p->produit_id}}','{{$p->producteur_id}}','{{$p->stock}}')"><i class="fas fa-cart-plus"></i></button>
+<button class="btn btn-success" onclick="addcart('{{$p->produit_id}}','{{$p->user_id}}','{{$p->stock}}')"><i class="fas fa-cart-plus"></i></button>
 
    </span> 
   </div>

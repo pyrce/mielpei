@@ -13,36 +13,16 @@ class CommandeClientSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('commande_produit')->insert([
-            'commande_id' => 1,
-            'produit_id' =>rand(1,3),
-            "user_id"=>1,
-            'prix' =>rand(5,10),
-            'quantite' =>rand(1,5),
-        ]);
 
+        for($i=0;$i<40;$i++){
         DB::table('commande_produit')->insert([
-            'commande_id' => 1,
+            'commande_id' => random_int(1,5),
             'produit_id' =>rand(1,3),
-            "user_id"=>1,
+            "user_id"=>random_int(2,5),
             'prix' =>rand(5,10),
             'quantite' =>rand(1,5),
         ]);
+        }
 
-        DB::table('commande_produit')->insert([
-            'commande_id' => 1,
-            'produit_id' =>rand(1,3),
-            "user_id"=>1,
-            'prix' =>rand(5,10),
-            'quantite' =>rand(1,5),
-        ]);
-
-        DB::table('commande_produit')->insert([
-            'commande_id' => 1,
-            'produit_id' =>rand(1,3),
-            "user_id"=>1,
-            'prix' =>rand(5,10),
-            'quantite' =>rand(1,5),
-        ]);
     }
 }

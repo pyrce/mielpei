@@ -160,7 +160,7 @@ location.reload();
 
     function deleteProduit(id){
         $.ajax({
-url:"/produits",
+url:"/producteurs",
 type:"delete",
 data:{id,"_token": "{{ csrf_token() }}"},
 success:()=>{
@@ -176,7 +176,7 @@ location.reload();
       data["stock"]=$("#stockval").val()
       data["produitid"]=$("#stockp").val()
       $.ajax({
-url:"/produits",
+url:"/producteurs/stock",
 type:"put",
 data:{data,"_token": "{{ csrf_token() }}"},
 success:()=>{

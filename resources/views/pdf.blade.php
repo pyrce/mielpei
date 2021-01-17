@@ -59,6 +59,7 @@ Fait le : {{ $commande->date }} <br>
 
 
 </table>
+total : {{ $total}} €
 </div>
 
 </body>

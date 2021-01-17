@@ -9,8 +9,7 @@
   <div class="d-flex flex-column">
 
     <input type="text" data-id="{{$panier[0]->id}}" data-user="1" id="panierId" hidden>
-    @foreach($panier as $p)
-
+    @foreach($panier[0]["produits"] as $p)
 
     <div class="card m-auto" style="width: 90%; margin-bottom:2% !important; margin-top:2% !important;">
       <div class="row no-gutters">
@@ -24,9 +23,9 @@
               <p class="card-text ">Quantité en stock : {{ $p->stock }}</p>
             </div>
           </div>
-          <input min="1" max="{{ $p->stock }}" type="number" value="{{ $p->quantite }}" data-id="{{ $p->produit_id }}" onchange="updateqte('{{ $p->produit_id }}')">
+          <input min="1" max="{{ $p->stock }}" type="number" value="{{ $p->pivot->quantite }}" data-id="{{ $p->produit_id }}" onchange="updateqte('{{ $p->produit_id }}',this.value)">
 
-          <i class="fas fa-times ml-3 mr-3" onclick="remove('{{ $p->produit_id }}')" style="color:#796a5a;"></i>
+          <i class="fas fa-times ml-3 mr-3" onclick="remove('{{$p->pivot->panier_id}}','{{ $p->id }}')" style="color:#796a5a;"></i>
         </div>
       </div>
 
@@ -42,7 +41,7 @@
     <div class="card ml-5" style="width: 18rem;max-height:150px;" id="montant">
       <div class="card-body">
         <h5 class="card-title">Montant total des produits</h5>
-        <p id="somme" class="card-text">10 €</p>
+        <p id="somme" class="card-text"> {{ $total}} €</p>
       </div>
       <ul class="list-group list-group-flush" id="commande">
         <li id="paypal-button" class=" btn-success pt-2 pb-2 text-center">Passer commande</li>
@@ -75,7 +74,7 @@
 location.reload();
       }
     })
-    console.log(id);
+
   })
 
   function listeAdresse() {
@@ -89,6 +88,27 @@ location.reload();
          // console.log(a.addresse)
           $("#liste_adresse").append("<option>"+a.addresse+"</option>")
         })
+      }
+    })
+
+  }
+  function updateqte(id,value){
+    $.ajax({
+      url:"/panier",
+      type:"PUT",
+      data:{id,value,"_token": "{{ csrf_token() }}"},
+      susscess:()=>{
+
+      }
+    })
+  }
+  function remove(panier,id){
+    $.ajax({
+      url:"/panier/remove",
+      type:"delete",
+      data:{panier,id,"_token": "{{ csrf_token() }}"},
+      susscess:()=>{
+location.reload();
       }
     })
 

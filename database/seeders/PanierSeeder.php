@@ -15,7 +15,8 @@ class PanierSeeder extends Seeder
     {
             
         DB::table('panier')->insert([
-            'user_id' =>1
+            'user_id' =>6
+            
         ]);
     }
 }

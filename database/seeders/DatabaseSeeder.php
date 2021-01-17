@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
     {
        //  \App\Models\ClientsModel::factory(10)->create();
 
-    ProduitsModel::factory()->times(30)->create();
+    ProduitsModel::factory()->times(60)->create();
     CommandesModel::factory()->times(5)->create();
-    UsersModel::factory()->times(5)->create();
+    //UsersModel::factory()->times(10)->create();
 
     $produits = ProduitsModel::all();
 

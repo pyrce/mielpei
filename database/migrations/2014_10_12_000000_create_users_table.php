@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger("tel")->nullable();
             $table->string("login");
             $table->string("password",255);
+            $table->integer("etat")->default("1");
         });
     }
 

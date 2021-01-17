@@ -5,6 +5,7 @@ use App\Http\Controllers\ProduitsController;
 use App\Http\Controllers\ProducteursController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\CommandesController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -57,14 +58,17 @@ Route::delete(
     [ProducteursController::class, 'deleteProduit']
 );
 Route::put(
-    '/producteurs',
+    '/producteurs/stock',
     [ProducteursController::class, 'addstock']
 );
 Route::get(
     '/producteurs/{id}',
     [ProducteursController::class, 'show']
 );
-
+Route::get(
+    '/producteur',
+    [ProducteursController::class, 'index']
+);
 Route::get(
     '/producteur/{id}',
     [ProducteursController::class, 'infos']
@@ -73,6 +77,8 @@ Route::put(
     '/producteur',
     [ProducteursController::class, 'modifier']
 );
+
+//----------------------------------Panier
 Route::get(
     '/panier',
     [PanierController::class, 'index']
@@ -85,9 +91,17 @@ Route::post(
     '/panier',
     [PanierController::class, 'add']
 );
+Route::put(
+    '/panier',
+    [PanierController::class, 'updateqte']
+);
 Route::delete(
     '/panier',
     [PanierController::class, 'delete']
+);
+Route::delete(
+    '/panier/remove',
+    [PanierController::class, 'remove']
 );
 Route::get(
     '/commandes',
@@ -104,9 +118,19 @@ Route::get(
 );
 
 Route::get(
-    '/producteur',
-    [ProducteursController::class, 'index']
+    '/admin',
+    [AdminController::class, 'show']
 );
-
-
+Route::put(
+    '/admin',
+    [AdminController::class, 'changerole']
+);
+Route::post(
+    '/admin',
+    [AdminController::class, 'adduser']
+);
+Route::get(
+    '/admin/desactiver/{id}',
+    [AdminController::class, 'suspend']
+);
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
