@@ -147,7 +147,7 @@ data["stock"]=$("#stock").val();
 data["prix"]=$("#prix").val();
 
 $.ajax({
-url:"/produits",
+url:"/producteurs",
 type:"POST",
 data:{data,"_token": "{{ csrf_token() }}"},
 success:()=>{

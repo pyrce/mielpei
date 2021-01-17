@@ -43,7 +43,6 @@ class ProducteursController extends Controller
         $nom=$data["nomProduit"];
         $prix=$data["prix"];
         $stock=$data["stock"];
-        $producteur_id=$data["producteur_id"];
         $produit=new ProduitsModel;
     
         $produit->nomProduit=$nom;
@@ -55,7 +54,7 @@ class ProducteursController extends Controller
             "stock"=>$stock,
             "prix"=>$prix
         ]);*/
-        ProduitsModel::find($produit["id"])->producteurs()->attach($produit,["producteur_id"=>$producteur_id,"stock"=>$stock,"prix"=>$prix]);
+        ProduitsModel::find($produit["id"])->users()->attach($produit["id"],["user_id"=>2,"stock"=>$stock,"prix"=>$prix]);
     
     }
     
