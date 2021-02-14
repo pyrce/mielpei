@@ -8,21 +8,30 @@
 </div>
 @endif
 
-<div class="container-fluid col-12">
-<div class="d-flex flex-row row row-cols-1 row-cols-md-2 g-4" style="height:auto">
+<div class="container-fluid col-12 d-flex flex-row">
+<div class="row row-cols-4 clearfix" style="height:auto">
 @foreach($produits as $p) 
 
-<div class="card" style="width: 18rem;">
+<div class="card shadow" style="width: 15rem;">
 
   <div class="card-body">
-    <h5 class="card-title">
-            {{ $p->nomProduit }} </h5>
- <p> {{ $p->prix }} €</p>           
-<p>En stock {{ $p->stock }}</p>
+    <h5 class="card-title titre">
+            {{ $p->nomProduit }} 
 
-<span class="d-flex">
-<button class="btn btn-success" onclick="addcart('{{$p->produit_id}}','{{$p->user_id}}','{{$p->stock}}')"><i class="fas fa-cart-plus"></i></button>
+            </h5>
+ <p> {{ $p->prix }} €</p>   
+
+ <img src="{{ url('honey-156826_640.png') }}" style="width:6rem;" alt="tag">    
+<p>En stock : {{ $p->stock }}</p>
+
+<span class="d-flex justify-content-between">
+
     <a href="/producteurs/{{$p->user_id }}" class="btn btn-primary">{{$p->nomUser}} {{$p->prenomUser}} </a>
+
+@if(Auth::user()!="")
+<button class="btn btn-success" onclick="addcart('{{$p->produit_id}}','{{$p->user_id}}','{{$p->stock}}')"><i class="fas fa-cart-plus"></i></button>
+@endif
+
    </span> 
   </div>
 </div>
@@ -32,10 +41,20 @@
 
 </div>
 
+<div class="border border-primary col-4" id="best">
+<h3 class="text-center bg-info">Meilleur ventes</h3>
+<ul id="ventes"  class="list-group">
+@foreach($ventes as $v)
+<li class="list-group-item">{{$v->nomProduit}} </li>
+
+@endforeach
+</ul>
+</div>
+
 </div>
 
 <div class="col-10">
-{{ $produits->onEachSide(5)->links() }}
+{{ $produits->links('pagination::bootstrap-4') }}
 </div>
 <script>
 function addcart(id,producteur_id,stock){

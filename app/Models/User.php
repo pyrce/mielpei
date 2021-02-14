@@ -61,4 +61,12 @@ public function produits(){
 public function roles(){
     return $this->belongsTo(RolesModel::class,"role_id","id");
 }
+
+public function hasRole($role)
+{
+  if ($this->roles()->where('libelle', $role)->first()) {
+    return true;
+  }
+  return false;
+}
 }

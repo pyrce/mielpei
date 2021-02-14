@@ -2,13 +2,13 @@
 
 @section("content")
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adduser">Ajouter</button>
 <table class="table table-sm table-bordered table-responsive table-striped">
     <thead>
         <tr>
             <th scope="col">Nom</th>
             <th scope="col">Prenom</th>
             <th scope="col">role</th>
+            <th>Mail</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -22,18 +22,20 @@
             <td>{{ $u-> prenomUser}}</td>
             <td>
 
-                <select name="" class="col-3" onchange="changerole('{{$u->id }}',this.value)" class="roles">
+                <select name="" class="col-3" onchange="changerole('{{$u->id }}','role_id',this.value)" class="roles">
                     @foreach($roles as $r)
                     <option value="{{ $r->id}}" {{ ($u->role_id===$r->id )? 'selected':''  }}>{{$r->libelle}}</option>
                     @endforeach
                 </select>
             </td>
-
+<td>
+<input type="text" value="{{$u->email}}" oninput="changerole('{{$u->id }}','email',this.value)"/> 
+</td>
 <td>  
 @if($u->etat==1)
-<a href="/admin/desactiver/{{$u->id}}"><i class="fas fa-lock text-warning"></i> </a> 
-@else
 <a href="/admin/desactiver/{{$u->id}}"><i class="fas fa-lock-open text-success"></i> </a> 
+@else
+<a href="/admin/desactiver/{{$u->id}}"><i class="fas fa-lock text-warning"></i> </a> 
 @endif
 </td>
         </tr>
@@ -85,13 +87,14 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
 <script>
-    function changerole(userid, value) {
+    function changerole(userid,champ, value) {
 
         $.ajax({
             url: "admin",
             type: "put",
             data: {
                 userid,
+                champ,
                 value,
                 "_token": "{{ csrf_token() }}"
             },

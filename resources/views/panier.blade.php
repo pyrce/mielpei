@@ -2,7 +2,7 @@
 
 @section("content")
 
-@if(count($panier)>0)
+@if(count($panier[0]["produits"])>0)
 <div class="msg m-auto"></div>
 <div class="d-flex flex-lg-row flex-sm-column-reverse justify-content-sm-center justify-content-lg-around flex-wrap-reverse flex-sm-wrap">
 
@@ -11,19 +11,19 @@
     <input type="text" data-id="{{$panier[0]->id}}" data-user="1" id="panierId" hidden>
     @foreach($panier[0]["produits"] as $p)
 
-    <div class="card m-auto" style="width: 90%; margin-bottom:2% !important; margin-top:2% !important;">
+    <div class="card m-auto" style="width: 40rem;height:10rem; margin-bottom:2% !important; margin-top:2% !important;">
       <div class="row no-gutters">
-        <div class="col-md-4">
-          <img class="card-img-top img-fluid" src="http://placehold.it/400x400" alt="">
+        <div class="col-md-4 text-center">
+        <img src="{{ url('honey-156826_640.png') }}" style="width:7rem;" alt="tag">  
         </div>
         <div class="d-flex col-8 align-items-center justify-content-start">
           <div class="col-md-6 col-lg-6">
             <div class="card-body col-11 m-0" id="body">
               <h5 class="card-title">Nom (réf) :{{$p->nomProduit}}</h5>
-              <p class="card-text ">Quantité en stock : {{ $p->stock }}</p>
+              <p class="card-text ">Quantité en stock : {{ $p->pivot->stock }}</p>
             </div>
           </div>
-          <input min="1" max="{{ $p->stock }}" type="number" value="{{ $p->pivot->quantite }}" data-id="{{ $p->produit_id }}" onchange="updateqte('{{ $p->produit_id }}',this.value)">
+          <input min="1" max="{{ $p->pivot->stock  }}" type="number" value="{{ $p->pivot->quantite }}" data-id="{{ $p->produit_id }}" onchange="updateqte('{{ $p->produit_id }}',this.value)">
 
           <i class="fas fa-times ml-3 mr-3" onclick="remove('{{$p->pivot->panier_id}}','{{ $p->id }}')" style="color:#796a5a;"></i>
         </div>
@@ -34,11 +34,12 @@
   </div>
 
   <div>
+    <h2>Adresse de livraison</h2>
     <input type="text" name="" list="liste_adresse" id="adresse" onFocus="listeAdresse()">
     <datalist id="liste_adresse">
     </datalist>
 
-    <div class="card ml-5" style="width: 18rem;max-height:150px;" id="montant">
+    <div class="card m-0" style="width: 18rem;max-height:150px;" id="montant">
       <div class="card-body">
         <h5 class="card-title">Montant total des produits</h5>
         <p id="somme" class="card-text"> {{ $total}} €</p>

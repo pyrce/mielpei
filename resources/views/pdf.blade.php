@@ -48,8 +48,9 @@ Fait le : {{ $commande->date }} <br>
 @foreach($commande->produits as $c)
 <tr>
 <td>{{ $c-> nomProduit}}</td>
-<td>{{ $c->pivot-> prix}}</td>
 <td>{{ $c->pivot-> quantite }} </td>
+<td>{{ $c->pivot-> prix}}</td>
+
 
 </tr>
 

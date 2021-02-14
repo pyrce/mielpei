@@ -2,6 +2,7 @@
 
 @section("content")
 <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutproduit">Ajouter</button>
+<h2 class="info">Mes Produits</h2>
 <table class="table table-sm table-bordered table-responsive table-striped">
     <thead>
 <tr>
@@ -18,7 +19,7 @@
 <tr>
 <td>{{ $p->nomProduit }}</td>
 <td>{{ $p->stock }} <button class="btn btn-primary addstock" data-bs-toggle="modal" data-produitid="{{$p->produit_id}}" data-bs-target="#stockmodal"> <i class="fas fa-plus"></i> </button> </td>
-<td>{{ $p-> prix}}</td>
+<td>{{ $p-> prix}} €</td>
 <td> 
    
 <i class="fas fa-minus-circle text-danger" onclick="deleteProduit('{{$p->produit_id }}')"></i> </td>
@@ -32,7 +33,7 @@
 
 </table>
 
-
+<h2 class="info">Mes commandes</h2>
 <table class="table table-sm table-bordered table-responsive table-striped">
     <thead>
 <tr>
@@ -175,6 +176,7 @@ location.reload();
       data={}
       data["stock"]=$("#stockval").val()
       data["produitid"]=$("#stockp").val()
+      console.log(data);
       $.ajax({
 url:"/producteurs/stock",
 type:"put",

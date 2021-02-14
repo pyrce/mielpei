@@ -26,8 +26,10 @@ Tel {{$producteur->tel}} </br>
 <p>En stock {{ $p->stock }}</p>
 
 <span class="d-flex">
-<button class="btn btn-success" onclick="addcart('{{$p->produit_id}}','{{$p->user_id}}','{{$p->stock}}')"><i class="fas fa-cart-plus"></i></button>
 
+@if(Auth::user()!="")
+<button class="btn btn-success" onclick="addcart('{{$p->produit_id}}','{{$p->user_id}}','{{$p->stock}}')"><i class="fas fa-cart-plus"></i></button>
+@endif
    </span> 
   </div>
 </div>

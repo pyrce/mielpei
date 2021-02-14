@@ -7,25 +7,24 @@ use Illuminate\Http\Request;
 use App\Models\ProduitsModel;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+
 class ProduitsController extends Controller
 {
     //
     public function __construct()
     {
-       // $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
-    public function index(){
+    public function index()
+    {
+
+        $produits = ProduitsModel::join('produit_user', 'produit_id', '=', "produits.id")
+            ->join("users", "user_id", "=", "users.id")->where("role_id", 2)->where("etat", 1)->paginate(10);
+
+        $ventes = ProduitsModel::select("id", ProduitsModel::raw("COUNT(*)"), "nomProduit")->with("commandes")->groupBy("produits.id")->limit(5)->get();
 
 
-    
-    // dd($user);
-
-        $produits = ProduitsModel::join('produit_user','produit_id','=',"produits.id")
-        ->join("users","user_id","=","users.id")->where("role_id",2)->where("etat",1)->paginate(10);
-
-        return view("welcome",["produits"=>$produits]);
-
+        return view("welcome", ["produits" => $produits, "ventes" => $ventes]);
     }
-
 }

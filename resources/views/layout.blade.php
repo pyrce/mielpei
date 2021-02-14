@@ -9,30 +9,94 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     </head>
     <body class="antialiased">
+    <div class="jumbotron jumbotron-fluid d-flex col-12 p-0 mb-0"  style="background-color:#2d2d2d;">
+        <div class="container col-8" id="header">
+          <h1 class="display-5 text-white mt-5 text-center">Miel Pei</h1>
+
+        </div>
+    @if(Auth::user() !=null)
+    <div class="  d-flex col-2 p-0 mb-0" style="background-color:#525050;" >
+            <div class="align-self-center  m-auto "><a href="/logout"><i class="fas fa-user-alt" style="font-size:2em;"></i></a></div>
+        </div>
+        <div class=" d-flex col-2 p-0 mb-0" style="background-color:#796a5a;" >
+          <div class="align-self-center  m-auto "><a href="/panier"> <i class="fas fa-shopping-cart" style="font-size:2em;""></i></a></div>
+      </div>
+@else
+  <div class=" d-flex col-2 p-0 mb-0" style="background-color:#525050;" >
+      <div class="align-self-center m-auto "><a href="/login"><i class="fas fa-user-alt" style="font-size:2em;"></i></a></div>
+  </div>
+  
+  <div class=" d-flex col-2 p-0 mb-0" style="background-color:#796a5a;" >
+      
+    <div class="align-self-center m-auto "> 
+      
+      <i class="fas fa-shopping-cart " style="font-size:2em;display:inline-block;"></i>
+</div>
+  </div>
+  @endif
+  
+    </div>
     <ul class="nav">
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/">Accueil</a>
   </li>
-
+  @if(Auth::user() !=null)
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/panier">Panier</a>
   </li>
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/commandes">Commandes</a>
   </li>
+@endif
+@if(Auth::user() !=null and Auth::user()["role_id"]==2)  
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/producteur">Mes produits</a>
   </li>
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/producteur/2">Mes infos</a>
   </li>
+  @endif
+@if(Auth::user() !=null and Auth::user()["role_id"]==1)  
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
   </li>
+@endif
+
 </ul>
 @yield("content")
+
+<style>
+  
+.card-title{
+    font-family: 'Oswald', sans-serif;
+}
+.card{
+  background-color: aquamarine;
+  margin: 5px 12px;
+}
+
+#ventes li{
+  font-family: 'Quicksand', sans-serif;
+}
+#best{
+  height: 100%;
+}
+
+.info{
+  background-color: burlywood;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+th{
+  text-align: center;
+}
+</style>
 <script src="https://kit.fontawesome.com/c1f6020dab.js" crossorigin="anonymous"></script>
 <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"

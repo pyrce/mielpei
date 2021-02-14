@@ -24,6 +24,7 @@ class UsersModelFactory extends Factory
         return [
            "nomUser"=>$this->faker->firstName,
            "prenomUser"=>$this->faker->lastName,
+           "email"=>$this->faker->mail,
            'tel'=>$this->faker->e164PhoneNumber,
            "role_id"=>random_int(2,3),
            'adresse'=>$this->faker->address,

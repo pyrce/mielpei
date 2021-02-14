@@ -33,7 +33,7 @@ Route::group([
 ], function ($router) {
 
     Route::post('login', [AuthController::class,"login"])->name("login");
-    Route::post('logout', 'AuthController@logout');
+    Route::get('logout', [AuthController::class,"logout"]);
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
@@ -49,15 +49,15 @@ return view("login");
 );
 
 
-Route::post(
+Route::middleware("auth")->post(
     '/producteurs',
     [ProducteursController::class, 'ajout']
 );
-Route::delete(
+Route::middleware("auth")->delete(
     '/producteurs',
     [ProducteursController::class, 'deleteProduit']
 );
-Route::put(
+Route::middleware("auth")->put(
     '/producteurs/stock',
     [ProducteursController::class, 'addstock']
 );
@@ -65,10 +65,12 @@ Route::get(
     '/producteurs/{id}',
     [ProducteursController::class, 'show']
 );
-Route::get(
+Route::middleware("auth")->get(
     '/producteur',
     [ProducteursController::class, 'index']
-);
+)->name("producteur");
+
+
 Route::get(
     '/producteur/{id}',
     [ProducteursController::class, 'infos']
@@ -79,7 +81,7 @@ Route::put(
 );
 
 //----------------------------------Panier
-Route::get(
+Route::middleware("auth")->get(
     '/panier',
     [PanierController::class, 'index']
 );
