@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ProducteursController extends Controller
 {
-
+    public function __construct()
+    {
+       // $this->authorizeResource(User::class, 'producteur');
+    }
     public function show(Request $req)
     {
         $prodid = $req->route("id");
@@ -25,16 +28,18 @@ class ProducteursController extends Controller
 
     public function index(Request $req)
     {
+        if (Auth::user()->hasRole("producteur")) {
+            $producteur = ProduitsModel::join('produit_user', 'produit_id', '=', "produits.id")->where("user_id", Auth::user()->id)->get();
 
-        $producteur = ProduitsModel::join('produit_user', 'produit_id', '=', "produits.id")->where("user_id", Auth::user()->id)->get();
-
-        $commandes = CommandesModel::join("commande_produit", "commande_id", "=", "commandes.id")
+            $commandes = CommandesModel::join("commande_produit", "commande_id", "=", "commandes.id")
             ->join("produits", "produits.id", "=", "commande_produit.produit_id")
             ->join("produit_user", "produit_user.produit_id", "=", "produits.id")
             ->join("users", "users.id", "=", "commandes.user_id")
             ->where("commande_produit.user_id", "=", Auth::user()->id)->get();
 
-        return view("mesproduits", ["producteur" => $producteur, "commandes" => $commandes]);
+            return view("mesproduits", ["producteur" => $producteur, "commandes" => $commandes]);
+        } else
+        return redirect()->route("index");
     }
     public function ajout(Request $req)
     {

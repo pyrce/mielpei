@@ -18,9 +18,9 @@ class ProduitsController extends Controller
 
     public function index()
     {
-
+      
         $produits = ProduitsModel::join('produit_user', 'produit_id', '=', "produits.id")
-            ->join("users", "user_id", "=", "users.id")->where("role_id", 2)->where("etat", 1)->paginate(10);
+            ->join("users", "user_id", "=", "users.id")->where("role_id", 2)->paginate(10);
 
         $ventes = ProduitsModel::select("id", ProduitsModel::raw("COUNT(*)"), "nomProduit")->with("commandes")->groupBy("produits.id")->limit(5)->get();
 

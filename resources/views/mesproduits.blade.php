@@ -56,7 +56,7 @@
 <td>{{ $c-> prix}}</td>
 <td>{{ $c-> quantite}} </td>
 <td> 
-
+<a href="/commandes/{{$c->id}}">Voir</a>
 </td>
 
 </tr>
@@ -113,7 +113,7 @@
         <span>
             Quantite : <input type="number" name="" id="stockval">
         </span>
-        <button class="btn btn-primary" id="stock" onclick="addstock()">ajouter stock</button>
+        <button class="btn btn-primary" id="stock" onclick="addstock()">modifier stock</button>
       </div>
 
     </div>

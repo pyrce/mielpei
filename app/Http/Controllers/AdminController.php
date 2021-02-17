@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\RolesModel;
-
+use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     //
     public function show()
     {
-        $users = User::all();
-        $roles = RolesModel::all();
+        if (Auth::user()->hasRole("admin")) {
+            $users = User::all();
+            $roles = RolesModel::all();
 
-        return view("admin", ["users" => $users, "roles" => $roles]);
+            return view("admin", ["users" => $users, "roles" => $roles]);
+        } else
+            return redirect()->route("index");
     }
 
     public function changerole(Request $req)

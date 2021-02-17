@@ -7,8 +7,9 @@
   {{session("success")}}
 </div>
 @endif
-
+<div class="msg"></div>
 <div class="container-fluid col-12 d-flex flex-row">
+
 <div class="row row-cols-4 clearfix" style="height:auto">
 @foreach($produits as $p) 
 
@@ -64,7 +65,12 @@ $.ajax({
   type:"post",
   data:{id,producteur_id,stock,"_token": "{{ csrf_token() }}"},
   success:()=>{
-    alert("ok")
+  
+    $(".msg").show(100, "swing");
+                $(".msg").html(
+                  '<button type="button"  class="btn btn-success">Le produit a bien été ajouté</button>'
+                  );
+                $(".msg").delay(2250).hide(50, "swing");
   }
 })
 

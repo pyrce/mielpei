@@ -28,7 +28,7 @@ th{
 <div id="info"  class="border border-info" style="margin-top:30px">
 
 Fait le : {{ $commande->date }} <br>
-
+à : {{$commande->addresse}}
 
 </div>
 <br>

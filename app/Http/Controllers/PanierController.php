@@ -33,8 +33,10 @@ class PanierController extends Controller
                 $total[$c->id] = $somme;
             }
         }
+    
+$total= sizeof($total) >0 ? $total:$otal[0]=null;
 
-        return view("panier", ["panier" => $panier, "total" => $total[$panier[0]["id"]]]);
+        return view("panier", ["panier" => $panier, "total" => $total[$panier[0]["id"]] ]);
     }
 
     public function add(Request $req)
@@ -64,7 +66,7 @@ class PanierController extends Controller
         $id = $req->get("id");
         $adresse = $req->get("adresse");
 
-        $panier=PanierModel::find($id)->get();
+        $panier=PanierModel::with("produits")->where('panier.user_id',Auth::user()["id"])->get();
 
         $list=[];
         $commande = CommandesModel::create([
@@ -73,7 +75,7 @@ class PanierController extends Controller
             "date" =>  date("Y-m-d"),
             "etat" => "en cours"
         ]);
-
+//dd($panier[0]["produits"] );
         foreach ($panier[0]["produits"] as $p) {
 
             $commande->produits()
@@ -111,7 +113,7 @@ class PanierController extends Controller
 
     public function listeAdresse()
     {
-        $addresse = CommandesModel::select("addresse")->where("user_id", Auth::user()["id"])->get();
+        $addresse = CommandesModel::select("addresse")->distinct()->where("user_id", Auth::user()["id"])->get();
         return response()->json([$addresse]);
     }
 }

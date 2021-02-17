@@ -20,6 +20,7 @@
           <div class="col-md-6 col-lg-6">
             <div class="card-body col-11 m-0" id="body">
               <h5 class="card-title">Nom (réf) :{{$p->nomProduit}}</h5>
+              <h5>Prix : {{$p->pivot->prix}}</h5>
               <p class="card-text ">Quantité en stock : {{ $p->pivot->stock }}</p>
             </div>
           </div>
@@ -65,8 +66,8 @@
     let id = $("#panierId").data("id");
 
     $.ajax({
-      url: "/panier",
-      type: "delete",
+      url: "/panier/paiement",
+      type: "post",
       data: {
         id,adresse:$("#adresse").val(),
         "_token": "{{ csrf_token() }}"

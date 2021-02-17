@@ -65,17 +65,17 @@ Route::get(
     '/producteurs/{id}',
     [ProducteursController::class, 'show']
 );
-Route::middleware("auth")->get(
+Route::middleware(["auth"])->get(
     '/producteur',
     [ProducteursController::class, 'index']
 )->name("producteur");
 
 
-Route::get(
+Route::middleware("auth")->get(
     '/producteur/{id}',
     [ProducteursController::class, 'infos']
 );
-Route::put(
+Route::middleware("auth")->put(
     '/producteur',
     [ProducteursController::class, 'modifier']
 );
@@ -89,49 +89,49 @@ Route::get(
     '/panier/listeadresse',
     [PanierController::class, 'listeAdresse']
 );
-Route::post(
+Route::middleware("auth")->post(
     '/panier',
     [PanierController::class, 'add']
 );
-Route::put(
+Route::middleware("auth")->put(
     '/panier',
     [PanierController::class, 'updateqte']
 );
-Route::delete(
-    '/panier',
+Route::middleware("auth")->post(
+    '/panier/paiement',
     [PanierController::class, 'delete']
 );
-Route::delete(
+Route::middleware("auth")->delete(
     '/panier/remove',
     [PanierController::class, 'remove']
 );
-Route::get(
+Route::middleware("auth")->get(
     '/commandes',
     [CommandesController::class, 'index']
 );
 
-Route::get(
+Route::middleware("auth")->get(
     '/commandes/{id}',
     [CommandesController::class, 'show']
 );
-Route::get(
+Route::middleware("auth")->get(
     '/commandes/pdf/{id}',
     [CommandesController::class, 'topdf']
 );
 
-Route::get(
+Route::middleware("auth")->get(
     '/admin',
     [AdminController::class, 'show']
 );
-Route::put(
+Route::middleware("auth")->put(
     '/admin',
     [AdminController::class, 'changerole']
 );
-Route::post(
+Route::middleware("auth")->post(
     '/admin',
     [AdminController::class, 'adduser']
 );
-Route::get(
+Route::middleware("auth")->get(
     '/admin/desactiver/{id}',
     [AdminController::class, 'suspend']
 );

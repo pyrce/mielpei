@@ -27,7 +27,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request)
-    {
+    {   
         $validator = Validator::make($request->all(), [
             'login' => 'required',
             'password' => 'required',
@@ -39,13 +39,21 @@ class AuthController extends Controller
         }
 
         if (!$token = auth()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Erreur d\'authentification']);
         }
-        if (Auth::user()["role_id"] == 2) {
+
+    
+       if(Auth::user()["etat"] == 0){
+        return response()->json(['error' => 'Votre compe est suspendu']);
+       }else{
+         
+        if (Auth::user()->hasRole("producteur")) {
             return redirect()->route('producteur');
         } else
             // return  $this->createNewToken($token);
             return redirect()->route('index');
+        }
+
     }
 
     /**
