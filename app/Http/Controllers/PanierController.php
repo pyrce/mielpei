@@ -34,9 +34,9 @@ class PanierController extends Controller
             }
         }
     
-$total= sizeof($total) >0 ? $total:$otal[0]=null;
+$total= sizeof($total) >0 ? $total[$panier[0]["id"]] : 0;
 
-        return view("panier", ["panier" => $panier, "total" => $total[$panier[0]["id"]] ]);
+        return view("panier", ["panier" => $panier, "total" => $total ]);
     }
 
     public function add(Request $req)
@@ -61,17 +61,19 @@ $total= sizeof($total) >0 ? $total:$otal[0]=null;
 
     }
 
-    public function delete(Request $req)
+    public function paiement(Request $req)
     {
         $id = $req->get("id");
-        $adresse = $req->get("adresse");
+        $addresse_livraison = $req->get("addresse_livraison");
+        $addresse_facturation = $req->get("addresse_facturation");
 
         $panier=PanierModel::with("produits")->where('panier.user_id',Auth::user()["id"])->get();
 
         $list=[];
         $commande = CommandesModel::create([
             "user_id" => Auth::user()["id"],
-            "addresse" => $adresse,
+            "addresse_livraison" => $addresse_livraison,
+            "addresse_facturation" => $addresse_facturation,
             "date" =>  date("Y-m-d"),
             "etat" => "en cours"
         ]);
@@ -86,7 +88,16 @@ $total= sizeof($total) >0 ? $total:$otal[0]=null;
                      "quantite" => $p["pivot"]["quantite"],
                      "prix" => $p["pivot"]["prix"]
                  ]);
-                
+
+            $prod=ProduitsModel::with("users")->whereHas("users",function($produit) use($p){
+               
+                $produit->where("produit_id",$p["pivot"]["produit_id"]);
+            })->where("produits.id",$p["id"])->first();
+
+            $stock=$prod["users"][0]["pivot"]["stock"]-$p["pivot"]["quantite"];
+
+            User::find(Auth::user()["id"])->produits()->updateExistingPivot($p["pivot"]["produit_id"], ["stock"=>$stock]);
+
             PanierModel::find($id)->produits()->detach($p["produit_id"]);
 
         }
@@ -111,9 +122,15 @@ $total= sizeof($total) >0 ? $total:$otal[0]=null;
         $panier->produits()->detach($id);
     }
 
-    public function listeAdresse()
+    public function listeAdresseLivraion()
     {
-        $addresse = CommandesModel::select("addresse")->distinct()->where("user_id", Auth::user()["id"])->get();
+        $addresse = CommandesModel::select("addresse_livraison")->distinct()->where("user_id", Auth::user()["id"])->get();
+        return response()->json([$addresse]);
+    }
+
+    public function listeAdresseFacturation()
+    {   
+        $addresse = CommandesModel::select("addresse_facturation")->distinct()->where("user_id", Auth::user()["id"])->get();
         return response()->json([$addresse]);
     }
 }

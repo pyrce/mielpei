@@ -28,8 +28,8 @@ th{
 <div id="info"  class="border border-info" style="margin-top:30px">
 
 Fait le : {{ $commande->date }} <br>
-à : {{$commande->addresse}}
-
+à : {{$commande->addresse_livraison}}  <br>
+Facturé a : {{$commande->addresse_facturation}}
 </div>
 <br>
 <div>

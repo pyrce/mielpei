@@ -35,9 +35,15 @@
   </div>
 
   <div>
-    <h2>Adresse de livraison</h2>
-    <input type="text" name="" list="liste_adresse" id="adresse" onFocus="listeAdresse()">
-    <datalist id="liste_adresse">
+
+    <h2>Addresse de livraison</h2>
+    <input type="text" name="" list="liste_adresselivrason" id="addresse_livraison" onFocus="listeadresselivraion()">
+    <datalist id="liste_adresselivrason">
+    </datalist>
+
+    <h2>Addresse de facturation</h2>
+    <input type="text" name="" list="liste_adressefacuraction" id="addresse_facturation" onFocus="listeadressefacturation()">
+    <datalist id="liste_adressefacuraction">
     </datalist>
 
     <div class="card m-0" style="width: 18rem;max-height:150px;" id="montant">
@@ -69,31 +75,52 @@
       url: "/panier/paiement",
       type: "post",
       data: {
-        id,adresse:$("#adresse").val(),
+        id,addresse_livraison:$("#addresse_livraison").val(),
+        addresse_facturation:$("#addresse_facturation").val(),
         "_token": "{{ csrf_token() }}"
       },
       success: () => {
-location.reload();
+//location.reload();
       }
     })
 
   })
 
-  function listeAdresse() {
+  function listeadresselivraion() {
     console.log("adresse")
     $.ajax({
-      url: "/panier/listeadresse",
+      url: "/panier/listeadresselivraion",
       type: "get",
       success: (data) => {
         console.log(data);
         data[0].forEach(a => {
          // console.log(a.addresse)
-          $("#liste_adresse").append("<option>"+a.addresse+"</option>")
+          $("#liste_adresselivrason").append("<option>"+a.addresse_livraison+"</option>")
         })
       }
     })
 
   }
+
+
+  function listeadressefacturation() {
+    console.log("adresse")
+    $.ajax({
+      url: "/panier/listeadressefacturation",
+      type: "get",
+      success: (data) => {
+        console.log(data);
+        data[0].forEach(a => {
+         // console.log(a.addresse)
+          $("#liste_adressefacuraction").append("<option>"+a.addresse_facturation+"</option>")
+        })
+      }
+    })
+
+  }
+
+
+
   function updateqte(id,value){
     $.ajax({
       url:"/panier",

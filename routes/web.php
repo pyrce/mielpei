@@ -8,6 +8,7 @@ use App\Http\Controllers\CommandesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\EnsureTokenIsValid;
 /*
@@ -33,6 +34,7 @@ Route::group([
 ], function ($router) {
 
     Route::post('login', [AuthController::class,"login"])->name("login");
+    Route::post('register', [UserController::class,"register"])->name("register");
     Route::get('logout', [AuthController::class,"logout"]);
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
@@ -48,6 +50,13 @@ return view("login");
 }
 );
 
+Route::get(
+    '/register',
+function(){
+    $token = auth()->user();
+return view("register");
+}
+);
 
 Route::middleware("auth")->post(
     '/producteurs',
@@ -86,8 +95,12 @@ Route::middleware("auth")->get(
     [PanierController::class, 'index']
 );
 Route::get(
-    '/panier/listeadresse',
-    [PanierController::class, 'listeAdresse']
+    '/panier/listeadresselivraion',
+    [PanierController::class, 'listeAdresseLivraion']
+);
+Route::get(
+    '/panier/listeadressefacturation',
+    [PanierController::class, 'listeAdresseFacturation']
 );
 Route::middleware("auth")->post(
     '/panier',
@@ -99,7 +112,7 @@ Route::middleware("auth")->put(
 );
 Route::middleware("auth")->post(
     '/panier/paiement',
-    [PanierController::class, 'delete']
+    [PanierController::class, 'paiement']
 );
 Route::middleware("auth")->delete(
     '/panier/remove',

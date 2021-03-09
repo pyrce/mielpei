@@ -11,7 +11,7 @@ class CommandesModel extends Model
     public $timestamps = false;
     protected $table = 'commandes';
     protected $fillable = [
-        'user_id',"date","addresse"
+        'user_id',"date","addresse","addresse_livraison","addresse_facturation"
        ];
     public function clients(){
         return $this->belongsTo(UsersModel::class);
