@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'admin');
+    }
+
     public function show()
     {
         if (Auth::user()->hasRole("admin")) {

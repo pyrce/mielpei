@@ -13,17 +13,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital@1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
     </head>
     <body class="antialiased">
     <div class="jumbotron jumbotron-fluid d-flex col-12 p-0 mb-0"  style="background-color:#2d2d2d;">
-        <div class="container col-8" id="header">
-          <h1 class="display-5 text-white mt-5 text-center">Miel Pei</h1>
+        <div class="container col-4" id="header">
+          <h1 class="display-5 text-white mt-5 flex align-self-center text-center">Miel Pei</h1>
 
         </div>
     @if(Auth::user() !=null)
+
+
+           <span class="flex align-self-center text-center col-2" style="font-family:Oswald;color:chartreuse;font-size:2rem;">Bienvenue {{ Auth::user()["nomUser"] }}</span>
+
+
     <div class="  d-flex col-2 p-0 mb-0" style="background-color:#525050;" >
             <div class="align-self-center  m-auto "><a href="/logout"><i class="fas fa-user-alt" style="font-size:2em;"></i></a></div>
         </div>
@@ -115,6 +121,13 @@ th{
   color: #8B3E46;
   border: 1px solid #F5C6CB;
   display: none;
+}
+
+.error-code{
+  font-family: "Merriweather";
+}
+.error-msg{
+  font-family:Quicksand ;
 }
 </style>
 <script src="https://kit.fontawesome.com/c1f6020dab.js" crossorigin="anonymous"></script>
