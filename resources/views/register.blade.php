@@ -39,6 +39,7 @@
             <label for="password" class="form-label ">Password</label>
             <span class="error_password"></span>
             <input type="password" class="form-control" id="password" name="password"  required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" aria-describedby="password">
+            <small>Le mot de passe doit faire 8 caractères, contenire une lettre majuscule, un chiffre et un caractère spécial </small>
     </div>
 
     <div class="row mb-3">
