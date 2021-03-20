@@ -2,9 +2,7 @@
 
 namespace App\Exceptions;
 
-use Exception;
-use App\Exceptions;
-use Illuminate\Auth\Access\AuthorizationException;
+
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -29,16 +27,24 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    /**
-     * Register the exception handling callbacks for the application.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->renderable(function (Exception $e, $request) {
-            return response()->view('errors.403', [], 403);
+/**
+
+* Render an exception into an HTTP response.
+
+*
+
+* @param \Illuminate\Http\Request $request
+
+* @param \Exception $e
+
+* @return \Illuminate\Http\Response
+
+*/
+    public function register(){
+        $this->reportable(function (Throwable $e) {
+            //
+            //dd($e);
+            //return response()->view('errors.'.$e->getCode(), [], $e->getCode());
         });
     }
-
 }
