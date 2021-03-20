@@ -35,8 +35,8 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (Exception $e, $request) {
+            return response()->view('errors.403', [], 403);
         });
     }
 
