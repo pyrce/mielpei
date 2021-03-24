@@ -72,7 +72,7 @@
     <a class="nav-link active" aria-current="page" href="/producteur">Mes produits</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/producteur/2">Mes infos</a>
+    <a class="nav-link active" aria-current="page" href="/producteur/{{Auth::user()['id']}}">Mes infos</a>
   </li>
   @endif
 @if(Auth::user() !=null and Auth::user()["role_id"]==1)  

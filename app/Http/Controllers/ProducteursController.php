@@ -13,7 +13,7 @@ class ProducteursController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(User::class, 'producteur');
+        //$this->authorizeResource(User::class, 'producteur');
     }
     public function show(Request $req)
     {
@@ -28,7 +28,7 @@ class ProducteursController extends Controller
 
     public function index(Request $req)
     {
-   
+  // dd(Auth::user());
             $producteur = ProduitsModel::join('produit_user', 'produit_id', '=', "produits.id")->where("user_id", Auth::user()->id)->get();
 
             $commandes = CommandesModel::join("commande_produit", "commande_id", "=", "commandes.id")
@@ -73,7 +73,8 @@ class ProducteursController extends Controller
         $attr = array();
         $attr["stock"] = $stock;
 
-        User::find(Auth::user()["id"])->produits()->updateExistingPivot($produitid, $attr);
+        User::find(Auth::user()["id"])->produits()->updateExistingPivot($produitid, ["stock"=>$stock]);
+
     }
 
     public function modifier(Request $req)

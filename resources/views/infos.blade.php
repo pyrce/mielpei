@@ -3,7 +3,7 @@
 @section("content")
 
 <div class="container d-flex flex-column">
-
+<div class="msg"></div>
     <div  class="row">
 
         <span class="row">
@@ -49,7 +49,11 @@ url:"/producteur",
 type:"PUT",
 data:{data,id, "_token": "{{ csrf_token() }}"},
 success:()=>{
-
+    $(".msg").show(100, "swing");
+        $(".msg").html(
+          '<button type="button"  class="btn btn-success">Le(s) information(s) a(ont) été bien changé(s)</button>'
+        );
+        $(".msg").delay(2250).hide(50, "swing");
 }
 })
 }

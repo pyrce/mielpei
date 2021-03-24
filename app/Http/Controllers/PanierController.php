@@ -33,7 +33,7 @@ class PanierController extends Controller
                 $total[$c->id] = $somme;
             }
         }
-    
+    //$panier=sizeof($panier[0]["produits"])>0 ? $panier[0]["produits"]: 0;
 $total= sizeof($total) >0 ? $total[$panier[0]["id"]] : 0;
 
         return view("panier", ["panier" => $panier, "total" => $total ]);
@@ -101,7 +101,7 @@ $total= sizeof($total) >0 ? $total[$panier[0]["id"]] : 0;
             PanierModel::find($id)->produits()->detach($p["produit_id"]);
 
         }
-
+        PanierModel::where("user_id",Auth::user()["id"])->delete();
     }
 
     public function updateqte(Request $req)

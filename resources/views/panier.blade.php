@@ -2,7 +2,7 @@
 
 @section("content")
 
-@if(count($panier[0]["produits"])>0)
+@if(count($panier)>0)
 <div class="msg m-auto"></div>
 <div class="d-flex flex-lg-row flex-sm-column-reverse justify-content-sm-center justify-content-lg-around flex-wrap-reverse flex-sm-wrap">
 
@@ -80,7 +80,7 @@
         "_token": "{{ csrf_token() }}"
       },
       success: () => {
-//location.reload();
+location.reload();
       }
     })
 

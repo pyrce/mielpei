@@ -11,18 +11,17 @@ class AdminController extends Controller
     //
     public function __construct()
     {
-        $this->authorizeResource(User::class, 'admin');
+       // $this->authorizeResource(User::class, 'admin');
     }
 
     public function show()
     {
-        if (Auth::user()->hasRole("admin")) {
+ 
             $users = User::all();
             $roles = RolesModel::all();
 
             return view("admin", ["users" => $users, "roles" => $roles]);
-        } else
-            return redirect()->route("index");
+
     }
 
     public function changerole(Request $req)

@@ -22,7 +22,8 @@
 <td>{{ $p-> prix}} €</td>
 <td class="d-flex justify-content-around"> 
    
-<i class="fas fa-minus-circle text-danger" onclick="deleteProduit('{{$p->produit_id }}')"></i> <button class="btn btn-primary addstock" data-bs-toggle="modal" data-produitid="{{$p->produit_id}}" data-bs-target="#stockmodal"> <i class="fas fa-plus"></i> </button></td>
+<i class="fas fa-minus-circle text-danger" onclick="deleteProduit('{{$p->produit_id }}')"></i> 
+<button class="btn btn-primary addstock" data-bs-toggle="modal" data-produitid="{{$p->produit_id}}" data-bs-target="#stockmodal"> <i class="fas fa-pen"></i> </button></td>
 
 </tr>
 

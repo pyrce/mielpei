@@ -58,15 +58,15 @@ return view("register");
 }
 );
 
-Route::middleware("auth")->post(
+Route::middleware("role:producteur")->post(
     '/producteurs',
     [ProducteursController::class, 'ajout']
 );
-Route::middleware("auth")->delete(
+Route::middleware("role:producteur")->delete(
     '/producteurs',
     [ProducteursController::class, 'deleteProduit']
 );
-Route::middleware("auth")->put(
+Route::middleware("role:producteur")->put(
     '/producteurs/stock',
     [ProducteursController::class, 'addstock']
 );
@@ -74,17 +74,17 @@ Route::get(
     '/producteurs/{id}',
     [ProducteursController::class, 'show']
 );
-Route::middleware(["auth"])->get(
+Route::middleware(["role:producteur"])->get(
     '/producteur',
     [ProducteursController::class, 'index']
 )->name("producteur");
 
 
-Route::middleware("auth")->get(
+Route::middleware("role:producteur")->get(
     '/producteur/{id}',
     [ProducteursController::class, 'infos']
 );
-Route::middleware("auth")->put(
+Route::middleware("role:producteur")->put(
     '/producteur',
     [ProducteursController::class, 'modifier']
 );
@@ -132,19 +132,19 @@ Route::middleware("auth")->get(
     [CommandesController::class, 'topdf']
 );
 
-Route::middleware("auth")->get(
+Route::middleware("role:admin")->get(
     '/admin',
     [AdminController::class, 'show']
 );
-Route::middleware("auth")->put(
+Route::middleware("role:admin")->put(
     '/admin',
     [AdminController::class, 'changerole']
 );
-Route::middleware("auth")->post(
+Route::middleware("role:admin")->post(
     '/admin',
     [AdminController::class, 'adduser']
 );
-Route::middleware("auth")->get(
+Route::middleware("role:admin")->get(
     '/admin/desactiver/{id}',
     [AdminController::class, 'suspend']
 );
