@@ -17,7 +17,7 @@ class PanierHasProduits extends Migration
             $table->id();
             $table->integer("panier_id");
             $table->integer("produit_id");
-            $table->integer("user_id");
+            $table->integer("producteur_id");
             $table->integer("quantite");
             $table->integer("stock");
             $table->integer("prix");

@@ -17,7 +17,7 @@ class ProduitProducteurSeeder extends Seeder
         for($i=0;$i<30;$i++){
         DB::table('produit_user')->insert([
             'produit_id' => rand(1,30),
-            'user_id' =>rand(2,5),
+            'producteur_id' =>rand(2,5),
             'prix' =>rand(8,20),
             'stock'=>rand(40,100),
             "totalvente"=>rand(10,40)
