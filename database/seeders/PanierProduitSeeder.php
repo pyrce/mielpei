@@ -17,7 +17,7 @@ class PanierProduitSeeder extends Seeder
             'panier_id' =>1,
             "produit_id"=>1,
             "quantite"=>2,
-            "user_id"=>3,
+            "producteur_id"=>3,
             "stock"=>10,
             "prix"=>10
         ]);
@@ -26,7 +26,7 @@ class PanierProduitSeeder extends Seeder
             'panier_id' =>1,
             "produit_id"=>2,
             "quantite"=>5,
-            "user_id"=>3,
+            "producteur_id"=>3,
             "stock"=>10,
             "prix"=>10
         ]);
