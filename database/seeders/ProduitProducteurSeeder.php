@@ -19,7 +19,8 @@ class ProduitProducteurSeeder extends Seeder
             'produit_id' => rand(1,30),
             'user_id' =>rand(2,5),
             'prix' =>rand(8,20),
-            'stock'=>rand(40,100)
+            'stock'=>rand(40,100),
+            "totalvente"=>rand(10,40)
         ]);
         }
 

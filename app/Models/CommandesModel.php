@@ -16,7 +16,12 @@ class CommandesModel extends Model
     public function clients(){
         return $this->belongsTo(UsersModel::class);
     }
-
+    public function addresse_livraison(){
+        return $this->hasMany(AdresseLivraison::class,"commande_id","id");
+    }
+    public function addresse_facturation(){
+        return $this->hasMany(AdresseFacturation::class,"commande_id","id");
+    }
     public function produits(){
         return $this->belongsToMany(ProduitsModel::class,"commande_produit","commande_id","produit_id")->withPivot("id","commande_id","prix","quantite");
       // return $this->belongsToMany(ProduitsModel::class)->using("commande_produit")->withPivot("id","commande_id","client_id","prix","quantite");

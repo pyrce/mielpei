@@ -20,7 +20,7 @@ class ProducteursController extends Controller
         $prodid = $req->route("id");
 
         $producteur = UsersModel::where("id", "=", $prodid)->get();
-        $produits = ProduitsModel::whereHas("users", function ($produits) use ($prodid) {
+        $produits = ProduitsModel::with("users")->whereHas("users", function ($produits) use ($prodid) {
             $produits->where("user_id", $prodid);
         })->get();
         return view("producteurs", ["producteur" => $producteur[0], "produits" => $produits]);
@@ -28,17 +28,53 @@ class ProducteursController extends Controller
 
     public function index(Request $req)
     {
-  // dd(Auth::user());
-            $producteur = ProduitsModel::join('produit_user', 'produit_id', '=', "produits.id")->where("user_id", Auth::user()->id)->get();
+
+            return view("producteurs.dashboard");
+
+    }
+
+    public function showcommandes(Request $req, $id)
+    {
+
+        $commande = CommandesModel::with("produits","addresse_livraison","addresse_facturation")->where("id", "=", $id)->get();
+
+        return view("producteurs.detail_commande", ["commande" => $commande[0]]);
+    }
+public function MesProduits()
+{
+                $producteur = ProduitsModel::join('produit_user', 'produit_id', '=', "produits.id")->where("user_id", Auth::user()->id)->paginate(5);
+       
+
+                return view("producteurs.mesproduits" , ["producteur" => $producteur]);
+
+}
+    public function commandes(){
+
 
             $commandes = CommandesModel::join("commande_produit", "commande_id", "=", "commandes.id")
             ->join("produits", "produits.id", "=", "commande_produit.produit_id")
             ->join("produit_user", "produit_user.produit_id", "=", "produits.id")
             ->join("users", "users.id", "=", "commandes.user_id")
+            //->join("adresse_livraison"." as al","commandes.id","=","al.commande_id")
+            //->join("adresse_facturation","commandes.id","=","adresse_facturation.commande_id")
             ->where("commande_produit.user_id", "=", Auth::user()->id)->get();
+            $total = [];
+            foreach ($commandes as $c) {
+    
+                $total[$c->id] = 0;
+    
+                $somme = 0;
+                foreach ($c->produits as $p) {
+                    // print_r( $c);
+    
+                    $somme += $p->pivot->prix * $p->pivot->quantite;
+    
+                    $total[$c->id] = $somme;
+                }
 
-            return view("mesproduits", ["producteur" => $producteur, "commandes" => $commandes]);
-
+               $c["total"]=$total;
+            }
+            return view("producteurs.commandes", ["commandes" => $commandes]);
     }
     public function ajout(Request $req)
     {

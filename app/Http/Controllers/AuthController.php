@@ -35,11 +35,13 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             // return redirect()->route('login');
-            return response()->json($validator->errors(), 422);
+            return redirect("/login")
+            ->with('error','Erreur d\'identifiants!');
         }
 
         if (!$token = auth()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Erreur d\'authentification']);
+            return redirect("/login")
+            ->with('error','You have no permission for this page!');
         }
 
     
@@ -48,7 +50,8 @@ class AuthController extends Controller
        }else{
         
         if (Auth::user()->hasRole("producteur")) {
-            return redirect()->route('index');
+           // return redirect("/producteur");
+           return redirect()->route('producteur');
         } else
             // return  $this->createNewToken($token);
             return redirect()->route('index');

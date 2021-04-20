@@ -19,6 +19,7 @@ class ProduitsHasProducteurs extends Migration
             $table->unsignedInteger("user_id");
             $table->integer("prix");
             $table->integer("stock");
+            $table->integer("totalvente");
         });
     }
 

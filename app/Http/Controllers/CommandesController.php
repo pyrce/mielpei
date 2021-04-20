@@ -36,7 +36,7 @@ class CommandesController extends Controller
     public function show(Request $req, $id)
     {
 
-        $commande = CommandesModel::with("produits")->where("id", "=", $id)->get();
+        $commande = CommandesModel::with("produits","addresse_livraison","addresse_facturation")->where("id", "=", $id)->get();
 
         return view("detail_commande", ["commande" => $commande[0]]);
     }
@@ -44,24 +44,28 @@ class CommandesController extends Controller
     public function topdf($id)
     {
 
-        $commande = CommandesModel::with("produits")->where("id", "=", $id)->get();
-        $user = User::find(Auth::user()["id"]);
-        $total = [];
+        $commande = CommandesModel::with("produits","addresse_livraison","addresse_facturation")->where("id", "=", $id)->get();
+        $user_id=Auth::user()["id"]!=null ? Auth::user()["id"] : session()->get("user_id");
+        $user = User::find($user_id);
+        $somme=0;
         foreach ($commande as $c) {
-
-            $total[$c->id] = 0;
+    
+            //$total[$c->id] = 0;
 
             $somme = 0;
             foreach ($c->produits as $p) {
-
+                // print_r( $c);
 
                 $somme += $p->pivot->prix * $p->pivot->quantite;
 
-                $total[$c->id] = $somme;
+               
             }
+ //$total[$c->id] = $somme;
+           //$c["total"]=$total;
         }
+       // $commande[0][]=$somme;
 
-        return PDF::loadView('pdf', ["user" => $user, "total" => $total[$commande[0]["id"]], "commande" => $commande[0]])
+        return PDF::loadView('pdf', ["user" => $user, "total"=>$somme,"commande" => $commande[0]])
             ->setPaper('a4', 'landscape')
             ->setWarnings(false)
 

@@ -11,7 +11,7 @@ class ProduitsModel extends Model
     protected $table = 'produits';
     public $timestamps = false;
     public function users(){
-        return $this->belongsToMany(User::class,"produit_user","produit_id","user_id")->withPivot("stock","prix","user_id");
+        return $this->belongsToMany(User::class,"produit_user","produit_id","user_id")->withPivot("stock","prix","user_id","totalvente");
     }
 
     public function paniers(){

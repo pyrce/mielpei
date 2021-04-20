@@ -56,7 +56,7 @@ class User extends Authenticatable implements JWTSubject
     
 }
 public function produits(){
-    return $this->belongsToMany(ProduitsModel::class,"produit_user","produit_id","user_id")->withPivot("stock","prix");
+    return $this->belongsToMany(ProduitsModel::class,"produit_user","produit_id","user_id")->withPivot("stock","prix","totalvente");
 }
 public function roles(){
     return $this->belongsTo(RolesModel::class,"role_id","id");

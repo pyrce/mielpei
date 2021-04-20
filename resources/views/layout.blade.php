@@ -45,7 +45,7 @@
       
     <div class="align-self-center m-auto "> 
       
-      <i class="fas fa-shopping-cart " style="font-size:2em;display:inline-block;"></i>
+    <div class="align-self-center  m-auto "><a href="/panier"> <i class="fas fa-shopping-cart" style="font-size:2em;""></i></a></div>
 </div>
   </div>
   @endif
@@ -59,6 +59,7 @@
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/register">Créer un compte</a>
   </li>
+  
   @if(Auth::user() !=null)
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/panier">Panier</a>
@@ -82,6 +83,8 @@
 @endif
 
 </ul>
+
+
 @yield("content")
 
 <style>
@@ -111,7 +114,7 @@ th{
  
     margin-top: 10px;
 
-    height: 27rem;
+    height: 50rem;
 }
 .error_msg{
   text-align: center;

@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -191,7 +192,7 @@ return [
     */
 
     'aliases' => [
-
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

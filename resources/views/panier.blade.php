@@ -24,7 +24,7 @@
               <p class="card-text ">Quantité en stock : {{ $p->pivot->stock }}</p>
             </div>
           </div>
-          <input min="1" max="{{ $p->pivot->stock  }}" type="number" value="{{ $p->pivot->quantite }}" data-id="{{ $p->produit_id }}" onchange="updateqte('{{ $p->produit_id }}',this.value)">
+          <input min="1" max="{{ $p->pivot->stock  }}" type="number" value="{{ $p->pivot->quantite }}" data-id="{{ $p->produit_id }}" onchange="updateqte('{{ $p->id }}',`${this.value}`)">
 
           <i class="fas fa-times ml-3 mr-3" onclick="remove('{{$p->pivot->panier_id}}','{{ $p->id }}')" style="color:#796a5a;"></i>
         </div>
@@ -36,23 +36,13 @@
 
   <div>
 
-    <h2>Addresse de livraison</h2>
-    <input type="text" name="" list="liste_adresselivrason" id="addresse_livraison" onFocus="listeadresselivraion()">
-    <datalist id="liste_adresselivrason">
-    </datalist>
-
-    <h2>Addresse de facturation</h2>
-    <input type="text" name="" list="liste_adressefacuraction" id="addresse_facturation" onFocus="listeadressefacturation()">
-    <datalist id="liste_adressefacuraction">
-    </datalist>
-
     <div class="card m-0" style="width: 18rem;max-height:150px;" id="montant">
       <div class="card-body">
         <h5 class="card-title">Montant total des produits</h5>
         <p id="somme" class="card-text"> {{ $total}} €</p>
       </div>
       <ul class="list-group list-group-flush" id="commande">
-        <li id="paypal-button" class=" btn-success pt-2 pb-2 text-center">Passer commande</li>
+        <li id="paypal-button" class=" btn-success pt-2 pb-2 text-center">   <a href="/macommande" class="text-light"> Passer commande</a></li>
       </ul>
     </div>
   </div>
@@ -66,60 +56,8 @@
 </div>
 @endif
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-  $("#paypal-button").on("click", function() {
-    let id = $("#panierId").data("id");
-
-    $.ajax({
-      url: "/panier/paiement",
-      type: "post",
-      data: {
-        id,addresse_livraison:$("#addresse_livraison").val(),
-        addresse_facturation:$("#addresse_facturation").val(),
-        "_token": "{{ csrf_token() }}"
-      },
-      success: () => {
-location.reload();
-      }
-    })
-
-  })
-
-  function listeadresselivraion() {
-    console.log("adresse")
-    $.ajax({
-      url: "/panier/listeadresselivraion",
-      type: "get",
-      success: (data) => {
-        console.log(data);
-        data[0].forEach(a => {
-         // console.log(a.addresse)
-          $("#liste_adresselivrason").append("<option>"+a.addresse_livraison+"</option>")
-        })
-      }
-    })
-
-  }
-
-
-  function listeadressefacturation() {
-    console.log("adresse")
-    $.ajax({
-      url: "/panier/listeadressefacturation",
-      type: "get",
-      success: (data) => {
-        console.log(data);
-        data[0].forEach(a => {
-         // console.log(a.addresse)
-          $("#liste_adressefacuraction").append("<option>"+a.addresse_facturation+"</option>")
-        })
-      }
-    })
-
-  }
-
-
 
   function updateqte(id,value){
     $.ajax({
@@ -142,5 +80,6 @@ location.reload();
     })
 
   }
+
 </script>
 @endsection

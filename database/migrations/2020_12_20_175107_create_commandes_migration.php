@@ -17,8 +17,6 @@ class CreateCommandesMigration extends Migration
             $table->id();
             $table->integer("user_id");
             $table->date("date");
-            $table->string("addresse_facturation");
-            $table->string("addresse_livraison");
             $table->string("etat")->nullable();
         });
     }

@@ -57,7 +57,7 @@ function(){
 return view("register");
 }
 );
-
+//-----------------------------------------------------------Producteurs
 Route::middleware("role:producteur")->post(
     '/producteurs',
     [ProducteursController::class, 'ajout']
@@ -70,6 +70,12 @@ Route::middleware("role:producteur")->put(
     '/producteurs/stock',
     [ProducteursController::class, 'addstock']
 );
+
+Route::middleware("auth")->get(
+    '/producteurs/commandes/{id}',
+    [ProducteursController::class, 'showcommandes']
+);
+
 Route::get(
     '/producteurs/{id}',
     [ProducteursController::class, 'show']
@@ -79,7 +85,15 @@ Route::middleware(["role:producteur"])->get(
     [ProducteursController::class, 'index']
 )->name("producteur");
 
+Route::get(
+    '/producteur/mesproduits',
+    [ProducteursController::class, 'MesProduits']
+);
 
+Route::get(
+    '/producteur/commandes',
+    [ProducteursController::class, 'commandes']
+);
 Route::middleware("role:producteur")->get(
     '/producteur/{id}',
     [ProducteursController::class, 'infos']
@@ -89,8 +103,8 @@ Route::middleware("role:producteur")->put(
     [ProducteursController::class, 'modifier']
 );
 
-//----------------------------------Panier
-Route::middleware("auth")->get(
+//-----------------------------------------------------------Panier
+Route::get(
     '/panier',
     [PanierController::class, 'index']
 );
@@ -102,22 +116,29 @@ Route::get(
     '/panier/listeadressefacturation',
     [PanierController::class, 'listeAdresseFacturation']
 );
-Route::middleware("auth")->post(
+Route::post(
     '/panier',
     [PanierController::class, 'add']
 );
-Route::middleware("auth")->put(
+Route::put(
     '/panier',
     [PanierController::class, 'updateqte']
 );
-Route::middleware("auth")->post(
+Route::post(
     '/panier/paiement',
     [PanierController::class, 'paiement']
 );
-Route::middleware("auth")->delete(
+Route::delete(
     '/panier/remove',
     [PanierController::class, 'remove']
 );
+Route::get(
+    '/macommande',
+    function(){ return view("macommande");}
+);
+
+
+//-----------------------------------------------------------Commandes
 Route::middleware("auth")->get(
     '/commandes',
     [CommandesController::class, 'index']
@@ -127,11 +148,15 @@ Route::middleware("auth")->get(
     '/commandes/{id}',
     [CommandesController::class, 'show']
 );
-Route::middleware("auth")->get(
+
+
+
+Route::get(
     '/commandes/pdf/{id}',
     [CommandesController::class, 'topdf']
 );
 
+//-----------------------------------------------------------Admin
 Route::middleware("role:admin")->get(
     '/admin',
     [AdminController::class, 'show']

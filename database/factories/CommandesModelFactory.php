@@ -24,8 +24,6 @@ class CommandesModelFactory extends Factory
         return [
             "date"=>$this->faker->date,
             "user_id"=>random_int(2,5),
-            "addresse_facturation"=>$this->faker->address,
-            "addresse_livraison"=>$this->faker->address
         ];
     }
 }

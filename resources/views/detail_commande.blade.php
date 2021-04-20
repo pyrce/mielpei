@@ -11,7 +11,10 @@
 </tr>
 </thead>
 <tbody>
-Commande fait le {{$commande->date}}
+Commande fait le {{$commande->date}} </br>
+Livré à {{  $commande["addresse_livraison"][0]["voie"] }}, {{  $commande["addresse_livraison"][0]["rue"] }} {{  $commande["addresse_livraison"][0]["ville"] }}, {{  $commande["addresse_livraison"][0]["pays"] }} <br>
+Factré à {{  $commande["addresse_facturation"][0]["voie"] }}, {{  $commande["addresse_facturation"][0]["rue"] }} {{  $commande["addresse_facturation"][0]["ville"] }} ,{{  $commande["addresse_facturation"][0]["pays"] }}
+
 @foreach($commande->produits as $c) 
 
 <tr>
