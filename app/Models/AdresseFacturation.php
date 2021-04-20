@@ -11,7 +11,7 @@ class AdresseFacturation extends Model
     public $timestamps = false;
     protected $table = 'adresse_facturation';
     protected $fillable = [
-        "commande_id"
+        "commande_id","voie","rue","ville","pays"
        ];
 
        public function commandes(){

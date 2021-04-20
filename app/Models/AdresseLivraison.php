@@ -11,7 +11,7 @@ class AdresseLivraison extends Model
     public $timestamps = false;
     protected $table = 'adresse_livraison';
     protected $fillable = [
-        "commande_id"
+        "commande_id","commande_id","voie","rue","ville","pays"
        ];
        
        public function commandes(){
