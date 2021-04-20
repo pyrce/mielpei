@@ -16,10 +16,10 @@ class AdresseFacturation extends Migration
         Schema::create('adresse_facturation', function (Blueprint $table) {
             $table->id();
             $table->integer("commande_id");
-            $table->integer("voie")->nullable();
-            $table->string("rue")->nullable();
-            $table->string("ville")->nullable();
-            $table->string("pays")->nullable();
+            $table->integer("voie");
+            $table->string("rue");
+            $table->string("ville");
+            $table->string("pays");
         });
     }
 

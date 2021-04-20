@@ -15,11 +15,11 @@ class AdresseLivraison extends Migration
     {
         Schema::create('adresse_livraison', function (Blueprint $table) {
             $table->id();
-            $table->integer("commande_id")->nullable();
-            $table->integer("voie")->nullable();
-            $table->string("rue")->nullable();
-            $table->string("ville")->nullable();
-            $table->string("pays")->nullable();
+            $table->integer("commande_id");
+            $table->integer("voie");
+            $table->string("rue");
+            $table->string("ville");
+            $table->string("pays");
         });
     }
 
