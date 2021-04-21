@@ -19,7 +19,7 @@
   <h3 class="text-center bg-info">Meilleur ventes</h3>
   <ul id="ventes" class="list-group">
     @foreach($ventes as $v)
-    <li class="list-group-item">{{$v->nomProduit}} 
+    <li class="list-group-item d-flex justify-content-between">{{$v->nomProduit}} 
     <button class="btn btn-success" onclick="addcart('{{$v->produit_id}}','{{$v->user_id}}','{{$v->stock}}')"><i class="fas fa-cart-plus"></i></button>
 
      </li>
