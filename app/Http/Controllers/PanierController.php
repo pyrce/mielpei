@@ -51,7 +51,7 @@ $total= sizeof($total) >0 ? $total[$panier[0]["id"]] : 0;
         $panier=[];
         $user_id=0;
 
-        if(Auth::user()["id"]!=null){
+        if(Auth::user()!=null){
 
         $user_id=Auth::user()["id"];
 
@@ -68,6 +68,14 @@ $total= sizeof($total) >0 ? $total[$panier[0]["id"]] : 0;
                 
                 $user_id=session()->get("user_id");
                 $panier = PanierModel::where("user_id", $user_id)->get();
+                if (sizeof($panier) == 0) {
+               
+                    $panier = PanierModel::create([
+                        "user_id" => $user_id
+        
+                    ]);
+                    }
+          
            }else{
 
             $iduser=PanierModel::orderBy('user_id', 'desc')->first();
@@ -90,7 +98,7 @@ $total= sizeof($total) >0 ? $total[$panier[0]["id"]] : 0;
             $user->where("user_id", $producteur_id)->where("produit_id", $id);
         })->get();
 
-        $panier[0]->produits()->attach($panier[0]["id"], ["produit_id" => $id, "producteur_id" => $producteur_id, "stock" => $stock, "quantite" => 1, "prix" => $produit[0]["users"][0]["pivot"]["prix"]]);
+        $panier[0]->produits()->attach($panier[0]["id"], ["produit_id" => $id, "user_id" => $producteur_id, "stock" => $stock, "quantite" => 1, "prix" => $produit[0]["users"][0]["pivot"]["prix"]]);
 
     }
 
@@ -122,7 +130,7 @@ $total= sizeof($total) >0 ? $total[$panier[0]["id"]] : 0;
             $commande->produits()
                 ->attach($commande, [
                      "commande_id" => $commande["id"],
-                     "produit_id"=>$p["pivot"]["produit_id"],
+                     "produit_id"=>$p["pivot"]["prix"],
                      "user_id" => $p["pivot"]["user_id"],
                      "quantite" => $p["pivot"]["quantite"],
                      "prix" => $p["pivot"]["prix"]
@@ -170,7 +178,7 @@ $total= sizeof($total) >0 ? $total[$panier[0]["id"]] : 0;
         $livraison->pays=$pays_facturation;
         $livraison->save();
         PanierModel::where("user_id",$user_id)->delete();
-        return redirect("/commande/pdf/".$commande["id"]);
+        return redirect("/commandes/pdf/".$commande["id"]);
     }
 
     public function updateqte(Request $req)

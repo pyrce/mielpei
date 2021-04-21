@@ -144,7 +144,7 @@ Route::middleware("auth")->get(
     [CommandesController::class, 'index']
 );
 
-Route::middleware("auth")->get(
+Route::get(
     '/commandes/{id}',
     [CommandesController::class, 'show']
 );

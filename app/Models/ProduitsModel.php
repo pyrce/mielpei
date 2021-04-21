@@ -15,7 +15,7 @@ class ProduitsModel extends Model
     }
 
     public function paniers(){
-        return $this->belongsToMany(PanierModel::class,"panier_produit","panier_id","produit_id")->withPivot("panier_id","user_id","prix","quantite","stock");
+        return $this->belongsToMany(PanierModel::class,"panier_produit","panier_id","user_id")->withPivot("panier_id","user_id","prix","quantite","stock");
     }
 
     public function commandes(){

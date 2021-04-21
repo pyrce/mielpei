@@ -18,12 +18,13 @@ th{
     
 
 
-
+@if($user)
 <div id="user" class="border border-info" style="margin:30px">
 {{ $user->nomUser}} {{ $user->prenomUser}} <br>
 {{ $user->adresse}} <br>
 {{ $user->tel}}
 </div>
+@endif
 <br>
 <div id="info"  class="border border-info" style="margin-top:30px">
 

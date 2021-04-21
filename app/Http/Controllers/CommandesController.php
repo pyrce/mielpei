@@ -45,7 +45,7 @@ class CommandesController extends Controller
     {
 
         $commande = CommandesModel::with("produits","addresse_livraison","addresse_facturation")->where("id", "=", $id)->get();
-        $user_id=Auth::user()["id"]!=null ? Auth::user()["id"] : session()->get("user_id");
+        $user_id=Auth::user()!=null ? Auth::user()["id"] : session()->get("user_id");
         $user = User::find($user_id);
         $somme=0;
         foreach ($commande as $c) {

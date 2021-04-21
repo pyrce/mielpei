@@ -16,7 +16,7 @@ class ProduitsHasProducteurs extends Migration
         Schema::create('produit_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger("produit_id");
-            $table->unsignedInteger("producteur_id");
+            $table->unsignedInteger("user_id");
             $table->integer("prix");
             $table->integer("stock");
             $table->integer("totalvente");
