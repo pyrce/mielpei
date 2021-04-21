@@ -112,7 +112,6 @@ th{
 }
 #map{
  
-    margin-top: 10px;
 
     height: 50rem;
 }
