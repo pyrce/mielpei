@@ -99,7 +99,7 @@ $total= sizeof($total) >0 ? $total[$panier[0]["id"]] : 0;
         })->get();
 
         $panier[0]->produits()->attach($panier[0]["id"], ["produit_id" => $id, "user_id" => $producteur_id, "stock" => $stock, "quantite" => 1, "prix" => $produit[0]["users"][0]["pivot"]["prix"]]);
-
+        return response()->json(["id"=>"ok"]);
     }
 
     public function paiement(Request $req)

@@ -12,9 +12,10 @@ Adresse {{$producteur->adresse}} </br>
 
 Tel {{$producteur->tel}} </br>
 
+<div class="msg"></div>
 
+<div class="d-flex flex-row row row-cols-1 row-cols-md-2 g-4 m-2" style="height:auto">
 
-<div class="d-flex flex-row row row-cols-1 row-cols-md-2 g-4" style="height:auto">
 @foreach($produits as $p) 
 
 <div class="card" style="width: 18rem;">
