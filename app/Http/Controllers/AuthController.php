@@ -46,7 +46,9 @@ class AuthController extends Controller
 
     
        if(Auth::user()["etat"] == 0){
-        return response()->json(['error' => 'Votre compe est suspendu']);
+        return redirect("/login")
+        ->with('error','Votre compe est suspendu');
+    
        }else{
         
         if (Auth::user()->hasRole("producteur")) {
